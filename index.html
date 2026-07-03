@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИНВОЙСЫ!!!</title>
+    <link rel="icon" type="image/png" href="favicon.svg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gray: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- PapaParse для CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Иконки FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+        .modal-open { overflow: hidden; }
+        .loader {
+            border: 3px solid #374151;
+            border-bottom-color: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Навигация -->
+    <nav class="bg-gray-800 border-b border-gray-700 p-4 sticky top-0 z-10 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-robot text-blue-500 text-2xl"></i>
+                <h1 class="text-xl font-bold">Invoice Checker</h1>
+            </div>
+            
+            <div class="flex items-center gap-4 bg-gray-900 px-4 py-2 rounded-lg border border-gray-700">
+                <div id="loadingSpinner" class="loader w-5 h-5 hidden"></div>
+                <span id="loadStatus" class="text-sm font-medium text-gray-300">Инициализация...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="max-w-7xl mx-auto p-4 space-y-6 flex-1 w-full">
+        
+        <!-- Ошибка CORS (если запущено без сервера) -->
+        <div id="corsError" class="hidden bg-red-900/40 border border-red-500/50 rounded-xl p-6 text-center shadow-lg">
+            <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-3"></i>
+            <h2 class="text-xl font-bold text-red-400 mb-2">Браузер заблокировал чтение файлов</h2>
+            <p class="text-gray-300 max-w-2xl mx-auto">
+                Вы открыли файл напрямую (file://). Из-за строгих правил безопасности браузер не может сам прочитать файлы из папки <code>/csv/</code>.<br><br>
+                <strong>Как исправить:</strong> Откройте эту папку в VS Code, нажмите правой кнопкой мыши по `index.html` и выберите <b>"Open with Live Server"</b>.
+            </p>
+        </div>
+
+        <!-- Дашборд -->
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4" id="dashboard">
+            <!-- Заполняется через JS -->
+        </div>
+
+        <!-- Фильтры -->
+        <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm flex flex-wrap gap-4 items-end" id="filtersArea">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-xs text-gray-400 mb-1">Менеджер</label>
+                <select id="filterManager" onchange="applyFilters()" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Все менеджеры</option>
+                </select>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-xs text-gray-400 mb-1">Метод перевода</label>
+                <select id="filterMethod" onchange="applyFilters()" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Все методы</option>
+                </select>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+                <label class="flex items-center space-x-2 bg-gray-900 border border-gray-700 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-700 transition">
+                    <input type="checkbox" id="filterProblems" onchange="applyFilters()" class="form-checkbox h-4 w-4 text-red-500 bg-gray-800 border-gray-600 rounded" checked>
+                    <span class="text-sm">Только проблемные</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Таблица -->
+        <div class="bg-gray-800 rounded-xl border border-gray-700 shadow-sm overflow-hidden" id="tableArea">
+            <div class="p-4 bg-gray-900/50 border-b border-gray-700 flex justify-between items-center">
+                <h2 class="font-bold text-gray-200" id="currentPeriodTitle">Ожидание данных...</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm whitespace-nowrap">
+                    <thead class="bg-gray-900/50 text-gray-400 text-xs uppercase font-medium">
+                        <tr>
+                            <th class="px-4 py-3">Клиент</th>
+                            <th class="px-4 py-3">Метод перевода</th>
+                            <th class="px-4 py-3 text-right text-blue-300">Чистый Доход<br><span class="text-[10px] font-normal text-gray-500">Рекл. - Агентские</span></th>
+                            <th class="px-4 py-3 text-right text-purple-300">Накопл.<br><span class="text-[10px] font-normal text-gray-500">Из отчета</span></th>
+                            <th class="px-4 py-3 text-right text-orange-300">Вычеты<br><span class="text-[10px] font-normal text-gray-500">current</span></th>
+                            <th class="px-4 py-3 text-right text-pink-300">Комиссия<br><span class="text-[10px] font-normal text-gray-500">Расчет</span></th>
+                            <th class="px-4 py-3 text-right border-l border-gray-700 font-bold text-white">Итого Инвойс<br><span class="text-[10px] font-normal text-gray-500">Сумма отчета</span></th>
+                            <th class="px-4 py-3 w-1/3">Выявленные ошибки / Предупреждения</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-gray-700">
+                        <!-- Контент генерируется -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Модальное окно истории клиента -->
+    <div id="clientModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-gray-800 w-full max-w-5xl rounded-2xl shadow-2xl border border-gray-700 overflow-hidden flex flex-col max-h-[90vh] transform scale-95 transition-transform duration-300" id="modalContent">
+            
+            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center bg-gray-900/50">
+                <h2 class="text-xl font-bold" id="modalClientName">Имя Клиента</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700">
+                        <h3 class="text-sm font-bold text-gray-300 mb-4 text-center">История Выплат (Только успешные)</h3>
+                        <div class="relative h-64">
+                            <canvas id="payoutChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col">
+                        <h3 class="text-sm font-bold text-gray-300 p-4 border-b border-gray-800 bg-gray-900">Полная история статусов (по месяцам)</h3>
+                        <div class="overflow-y-auto flex-1 custom-scrollbar">
+                            <table class="w-full text-left text-sm whitespace-nowrap">
+                                <thead class="bg-gray-800 text-gray-400 text-xs uppercase sticky top-0">
+                                    <tr>
+                                        <th class="px-4 py-2">Месяц</th>
+                                        <th class="px-4 py-2">Статус выплаты</th>
+                                        <th class="px-4 py-2 text-right">Сумма</th>
+                                        <th class="px-4 py-2 text-right">Накопления</th>
+                                        <th class="px-4 py-2 text-xs text-gray-500">Ориг. статус</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalHistoryTable" class="divide-y divide-gray-700">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AppState = {
+            loadedMonths: [],
+            systemData: {},
+            currentData: null,
+            currentMonthIdx: 0,
+            clientHistory: {},
+            processeResults: [],
+            charts: { payout: null }
+        };
+
+        const ALLOWED_METHODS = [
+            'SWIFT from WIO {UAE}',
+            'SWIFT from ADIB {UAE}',
+            'Payoneer to Payoneer {UAE}',
+            'USD',
+            'Local from Payset {UAE}',
+            'SWIFT from Payset {UAE}',
+            'SWIFT from BCC {UAE}'
+        ];
+
+        const THRESHOLDS = {
+            'SWIFT from WIO {UAE}': 500,
+            'SWIFT from ADIB {UAE}': 500,
+            'Payoneer to Payoneer {UAE}': 150,
+            'USD': 150,
+            'Local from Payset {UAE}': 150,
+            'SWIFT from Payset {UAE}': 500,
+            'SWIFT from BCC {UAE}': 500
+        };
+
+        const FILE_VARIANTS = [];
+        for (let year = 2025; year <= 2035; year++) {
+            for (let month = 1; month <= 12; month++) {
+                const mm = String(month).padStart(2, '0');
+                FILE_VARIANTS.push({
+                    idx: parseInt(`${year}${mm}`),
+                    name: `${year}-${mm}`,
+                    filename: `${year}-${mm}.csv`
+                });
+            }
+        }
+
+        function parseMoney(val) {
+            if (!val) return 0;
+            let s = String(val).replace(/\s/g, '').replace(/&nbsp;/g, '').replace(/ /g, '');
+            let clean = s.replace(/[^\d,\.-]/g, '');
+            clean = clean.replace(',', '.'); 
+            const num = parseFloat(clean);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function normalizeRow(row) {
+            let nr = {};
+            for (let k in row) nr[k.trim()] = row[k];
+            return nr;
+        }
+
+        async function autoLoadFiles() {
+            const statusEl = document.getElementById('loadStatus');
+            const spinner = document.getElementById('loadingSpinner');
+            const corsError = document.getElementById('corsError');
+            
+            if (window.location.protocol === 'file:') {
+                corsError.classList.remove('hidden');
+                document.getElementById('filtersArea').classList.add('hidden');
+                document.getElementById('tableArea').classList.add('hidden');
+                statusEl.innerText = "Ошибка запуска";
+                statusEl.classList.replace('text-gray-300', 'text-red-500');
+                return;
+            }
+
+            statusEl.innerText = 'Сканирование папки /csv/...';
+            spinner.classList.remove('hidden');
+
+            try {
+                const res = await fetch(`./csv/current.csv`);
+                if (res.ok) {
+                    const text = await res.text();
+                    Papa.parse(text, {
+                        header: true,
+                        skipEmptyLines: true,
+                        complete: function(results) {
+                            results.data.forEach(r => {
+                                const nr = normalizeRow(r);
+                                if (nr['Client']) {
+                                    const revenueAdSystem = parseMoney(nr['Revenue Ad system'] || nr['Revenue']);
+                                    const agencyFee = parseMoney(nr['Agency fee']);
+                                    const netRevenue = revenueAdSystem - agencyFee; 
+
+                                    AppState.systemData[nr['Client'].trim()] = {
+                                        revenueAdSystem: revenueAdSystem,
+                                        agencyFee: agencyFee,
+                                        revenue: netRevenue, 
+                                        commission: parseMoney(nr['Transfer commission']),
+                                        deduction: parseMoney(nr['Google Deduction Fact'] || nr['Google Deduction']),
+                                        payout: parseMoney(nr['Payout'])
+                                    };
+                                }
+                            });
+                        }
+                    });
+                }
+            } catch (e) {
+                console.warn("Файл current.csv не найден или произошла ошибка чтения.");
+            }
+
+            const fetchPromises = FILE_VARIANTS.map(async (variant) => {
+                try {
+                    const response = await fetch(`./csv/${variant.filename}`);
+                    if (response.ok) {
+                        const text = await response.text();
+                        return new Promise(resolve => {
+                            Papa.parse(text, {
+                                header: true,
+                                skipEmptyLines: true,
+                                complete: function(results) {
+                                    if (results.data.length > 0) {
+                                        AppState.loadedMonths.push({
+                                            monthIdx: variant.idx,
+                                            name: variant.name,
+                                            data: results.data
+                                        });
+                                    }
+                                    resolve();
+                                }
+                            });
+                        });
+                    }
+                } catch (e) {
+                    // Игнорируем файлы, которых нет в папке
+                }
+            });
+
+            await Promise.all(fetchPromises);
+            spinner.classList.add('hidden');
+
+            if (AppState.loadedMonths.length === 0) {
+                statusEl.innerText = 'Месячные CSV файлы не найдены в папке /csv/';
+                statusEl.classList.replace('text-gray-300', 'text-yellow-400');
+                document.getElementById('tableBody').innerHTML = `<tr><td colspan="8" class="px-4 py-8 text-center text-yellow-500">Пожалуйста, положите файлы (напр. 2026-01.csv, 2027-05.csv и current.csv) в папку csv/ рядом с проектом.</td></tr>`;
+                return;
+            }
+
+            AppState.loadedMonths.sort((a, b) => a.monthIdx - b.monthIdx);
+
+            const currentObj = AppState.loadedMonths[AppState.loadedMonths.length - 1];
+            AppState.currentData = currentObj.data;
+            AppState.currentMonthIdx = currentObj.monthIdx;
+
+            statusEl.innerText = `Найдено месяцев: ${AppState.loadedMonths.length}. Актуальный: ${currentObj.name}. Система (current): ${Object.keys(AppState.systemData).length > 0 ? 'Подключена' : 'Нет'}`;
+            statusEl.classList.replace('text-gray-300', 'text-green-400');
+            document.getElementById('currentPeriodTitle').innerText = `Проверка инвойсов — Период: ${currentObj.name}`;
+
+            processData();
+        }
+
+        function processData() {
+            buildHistory();
+            validateCurrent();
+            updateUI();
+        }
+
+        function buildHistory() {
+            AppState.clientHistory = {};
+
+            AppState.loadedMonths.forEach(fileObj => {
+                fileObj.data.forEach(r => {
+                    const row = normalizeRow(r);
+                    const client = row['Клиент'] ? row['Клиент'].trim() : null;
+                    if (!client) return;
+
+                    if (!AppState.clientHistory[client]) {
+                        AppState.clientHistory[client] = {
+                            records: [],
+                            hadAprilPayout: false,
+                            startedBefore2026: false,
+                            missingHistory: false,
+                            accumulationsTracked: 0
+                        };
+                    }
+
+                    const history = AppState.clientHistory[client];
+                    const accum = parseMoney(row['Накопления']);
+                    const sum = parseMoney(row['Сумма']);
+                    const csvComm = parseMoney(row['Комиссия на перевод'] || row['Коммисия на перевод']);
+                    const errorStatus = row['Ошибка'] ? row['Ошибка'].trim() : '';
+                    const isInvoice = errorStatus.toLowerCase().includes('инвойс');
+
+                    if (history.records.length === 0 && accum > 0) {
+                        if (fileObj.monthIdx <= 202601) {
+                            history.startedBefore2026 = true;
+                        } else {
+                            history.missingHistory = true; // Накопления появились из ниоткуда в середине года
+                        }
+                    }
+
+                    if (fileObj.monthIdx === 202604 && isInvoice) {
+                        history.hadAprilPayout = true;
+                    }
+
+                    if (fileObj.monthIdx !== AppState.currentMonthIdx) {
+                        if (!isInvoice) history.accumulationsTracked += sum;
+                        else history.accumulationsTracked = 0;
+                    }
+
+                    history.records.push({
+                        monthName: fileObj.name,
+                        monthIdx: fileObj.monthIdx,
+                        sum: sum,
+                        accum: accum,
+                        csvCommission: csvComm,
+                        method: row['Метод перевода'] || '',
+                        status: errorStatus,
+                        isInvoice: isInvoice
+                    });
+                });
+            });
+        }
+
+        function calculateCommission(method, netRevenue, accum) {
+            const m = method.trim();
+
+            if (m === 'SWIFT from WIO {UAE}') return 21.3;
+            if (m === 'SWIFT from ADIB {UAE}') return 41.5;
+            
+            if (m === 'Payoneer to Payoneer {UAE}') {
+                const grossAccum = accum > 0 ? (accum / 0.99) : 0;
+                const grossTotal = netRevenue + grossAccum;
+
+                if (grossTotal <= 500) {
+                    return (netRevenue * 0.01) + 3;
+                } else {
+                    return (netRevenue * 0.016) + (grossAccum * 0.006);
+                }
+            }
+
+            if (m === 'USD') {
+                return netRevenue * 0.05;
+            }
+
+            if (m === 'Local from Payset {UAE}') return 0;
+            if (m === 'SWIFT from Payset {UAE}') return 30;
+            if (m === 'SWIFT from BCC {UAE}') return 54;
+            
+            return null;
+        }
+
+        function validateCurrent() {
+            AppState.processedResults = [];
+
+            AppState.currentData.forEach(r => {
+                const row = normalizeRow(r);
+                const errorField = row['Ошибка'] ? row['Ошибка'].trim() : '';
+                
+                if (!errorField.toLowerCase().includes('инвойс')) return;
+
+                const client = row['Клиент'] ? row['Клиент'].trim() : 'Неизвестный';
+                const manager = row['Менеджер'] || '';
+                const method = row['Метод перевода'] ? row['Метод перевода'].trim() : '';
+                
+                const invoiceAccum = parseMoney(row['Накопления']);
+                const invoiceSum = parseMoney(row['Сумма']);
+
+                const result = {
+                    client, manager, method, 
+                    invoiceAccum, invoiceSum, 
+                    sysRevenueAdSystem: 0, sysAgencyFee: 0, sysRevenue: 0, sysDeduction: 0, sysPayout: 0,
+                    calculatedCommission: 0,
+                    errors: []
+                };
+
+                const history = AppState.clientHistory[client];
+                const sys = AppState.systemData[client];
+                const methodLimit = THRESHOLDS[method.trim()] || 0;
+
+                if (!ALLOWED_METHODS.includes(method)) {
+                    result.errors.push("Сменить метод выплаты (не найден в списке)");
+                }
+
+                if (!sys) {
+                    result.errors.push("Не найден в системе (current.csv)!");
+                } else {
+                    result.sysRevenueAdSystem = sys.revenueAdSystem;
+                    result.sysAgencyFee = sys.agencyFee;
+                    result.sysRevenue = sys.revenue; 
+                    result.sysDeduction = sys.deduction;
+                    result.sysPayout = sys.payout;
+
+                    // ПРОВЕРКА ПОРОГА (ВЫПЛАТЫ)
+                    let grossForThreshold = sys.revenue + invoiceAccum;
+                    if (method.trim() === 'Payoneer to Payoneer {UAE}' && invoiceAccum > 0) {
+                        grossForThreshold = sys.revenue + (invoiceAccum / 0.99);
+                    } else if (method.trim() === 'USD' && invoiceAccum > 0) {
+                        grossForThreshold = sys.revenue + (invoiceAccum / 0.95);
+                    }
+
+                    if (grossForThreshold > 0 && grossForThreshold < methodLimit) {
+                        result.errors.push(`Не достигнут порог выплат! (Набрано: $${grossForThreshold.toFixed(2)} из $${methodLimit})`);
+                    }
+
+                    const calcComm = calculateCommission(method, sys.revenue, invoiceAccum);
+                    result.calculatedCommission = calcComm !== null ? calcComm : 0;
+                    
+                    if (calcComm !== null) {
+                        const expectedSum = sys.revenue + invoiceAccum - calcComm - sys.deduction;
+                        
+                        if (Math.abs(expectedSum - invoiceSum) > 0.05) { 
+                            result.errors.push(`Несоответствие Сумм! Ожидалось: $${expectedSum.toFixed(2)}, в Инвойсе: $${invoiceSum.toFixed(2)}`);
+                        }
+                    }
+                }
+
+                if (history) {
+                    // ПРОВЕРКА НА МЕРТВОГО КЛИЕНТА
+                    if (history.records.length >= 3) {
+                        const len = history.records.length;
+                        const acc1 = history.records[len - 1].accum; 
+                        const acc2 = history.records[len - 2].accum; 
+                        const acc3 = history.records[len - 3].accum; 
+                        
+                        if (acc1 > 0 && acc1 === acc2 && acc2 === acc3) {
+                            result.errors.push("Мертвый клиент: Накопления заморожены (>2 мес.). Выплат фактически не было!");
+                        }
+                    }
+
+                    if (history.startedBefore2026 && invoiceAccum > 0) {
+                        result.errors.push("Пересчитать вручную (накопления начались до января 2026 года)");
+                    } else if (history.missingHistory && invoiceAccum > 0) {
+                        result.errors.push("Пересчитать вручную (есть неизвестные накопления из прошлых периодов)");
+                    } else {
+                        const expectedAccum = Math.round(history.accumulationsTracked * 100) / 100;
+                        const currentAccum = Math.round(invoiceAccum * 100) / 100;
+                        if (expectedAccum > 0 && expectedAccum !== currentAccum) {
+                            result.errors.push(`Ошибка истории накоплений: По истории должно быть ~$${expectedAccum}`);
+                        }
+                    }
+
+                    if (AppState.currentMonthIdx > 202604) { 
+                        if (method === 'Payoneer to Payoneer {UAE}' || method === 'Local from Payset {UAE}') {
+                            if (!history.hadAprilPayout) {
+                                result.errors.push("Проверить необходимые документы (Не было выплаты в Апреле 2026)");
+                            }
+                        }
+                    }
+                }
+
+                AppState.processedResults.push(result);
+            });
+        }
+
+        function updateUI() {
+            renderDashboard();
+            populateFilters();
+            applyFilters();
+        }
+
+        function renderDashboard() {
+            const r = AppState.processedResults;
+            const total = r.length;
+            const withErrors = r.filter(x => x.errors.length > 0).length;
+            
+            let mathErrors = 0, docsErrors = 0, notFoundErrors = 0, frozenErrors = 0;
+            r.forEach(x => {
+                x.errors.forEach(e => {
+                    if (e.includes("документы")) docsErrors++;
+                    if (e.includes("Несоответствие Сумм") || e.includes("вручную") || e.includes("истории")) mathErrors++;
+                    if (e.includes("Не найден в системе")) notFoundErrors++;
+                    if (e.includes("Мертвый клиент") || e.includes("Не достигнут порог")) frozenErrors++;
+                });
+            });
+
+            const cards = [
+                { title: "Всего инвойсов", val: total, color: "text-blue-400", border: "border-blue-500/30" },
+                { title: "Не сходятся суммы", val: mathErrors, color: "text-pink-400", border: "border-pink-500/30" },
+                { title: "Нет в current", val: notFoundErrors, color: "text-yellow-400", border: "border-yellow-500/30" },
+                { title: "Проблема с Документами", val: docsErrors, color: "text-orange-400", border: "border-orange-500/30" },
+                { title: "Пороги / Мертвые", val: frozenErrors, color: "text-purple-400", border: "border-purple-500/30 bg-purple-900/10" }
+            ];
+
+            document.getElementById('dashboard').innerHTML = cards.map(c => `
+                <div class="p-4 rounded-xl border ${c.border} flex flex-col justify-center items-center text-center shadow-sm">
+                    <div class="text-xs text-gray-400 mb-1 leading-tight h-8 flex items-center">${c.title}</div>
+                    <div class="text-3xl font-bold ${c.color}">${c.val}</div>
+                </div>
+            `).join('');
+        }
+
+        function populateFilters() {
+            const managers = [...new Set(AppState.processedResults.map(r => r.manager))].filter(Boolean).sort();
+            const methods = [...new Set(AppState.processedResults.map(r => r.method))].filter(Boolean).sort();
+
+            document.getElementById('filterManager').innerHTML = '<option value="">Все менеджеры</option>' + managers.map(m => `<option value="${m}">${m}</option>`).join('');
+            document.getElementById('filterMethod').innerHTML = '<option value="">Все методы</option>' + methods.map(m => `<option value="${m}">${m}</option>`).join('');
+        }
+
+        function applyFilters() {
+            const fManager = document.getElementById('filterManager').value;
+            const fMethod = document.getElementById('filterMethod').value;
+            const fProblemsOnly = document.getElementById('filterProblems').checked;
+
+            const filtered = AppState.processedResults.filter(r => {
+                if (fManager && r.manager !== fManager) return false;
+                if (fMethod && r.method !== fMethod) return false;
+                if (fProblemsOnly && r.errors.length === 0) return false;
+                return true;
+            });
+
+            renderTable(filtered);
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">Нет инвойсов, подходящих под фильтры</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(r => {
+                const hasError = r.errors.length > 0;
+                
+                const errorsHtml = r.errors.map(e => `<span class="block text-red-400 mb-1 font-medium"><i class="fa-solid fa-circle-exclamation text-[10px] mr-1"></i>${e}</span>`).join('');
+                const statusHtml = hasError ? errorsHtml : `<span class="text-green-500 font-bold"><i class="fa-solid fa-check mr-1"></i>Сходится</span>`;
+
+                return `
+                    <tr class="hover:bg-gray-700/50 transition-colors cursor-pointer group border-b border-gray-800" onclick="openClientModal('${r.client.replace(/'/g, "\\'")}')">
+                        <td class="px-4 py-3 font-bold text-white group-hover:text-blue-400 transition-colors">${r.client}<br><span class="text-[10px] text-gray-500 font-normal">${r.manager}</span></td>
+                        <td class="px-4 py-3"><span class="px-2 py-1 bg-gray-700 rounded text-xs text-gray-300 border border-gray-600">${r.method}</span></td>
+                        
+                        <td class="px-4 py-3 font-mono text-right text-blue-300" title="Доход рекламных систем: $${(r.sysRevenueAdSystem || 0).toFixed(2)}&#10;Агентская комиссия: $${(r.sysAgencyFee || 0).toFixed(2)}">
+                            ${r.sysRevenue.toFixed(2)}
+                            ${r.sysAgencyFee > 0 ? `<br><span class="text-[10px] text-gray-500 font-normal">Агент.: -${r.sysAgencyFee.toFixed(2)}</span>` : ''}
+                        </td>
+                        <td class="px-4 py-3 font-mono text-right text-purple-300">${r.invoiceAccum.toFixed(2)}</td>
+                        <td class="px-4 py-3 font-mono text-right text-orange-300">${r.sysDeduction > 0 ? '-' + r.sysDeduction.toFixed(2) : '0.00'}</td>
+                        <td class="px-4 py-3 font-mono text-right text-pink-300">-${r.calculatedCommission.toFixed(2)}</td>
+                        
+                        <td class="px-4 py-3 font-mono text-right border-l border-gray-700 font-bold ${hasError ? 'text-red-400' : 'text-green-400'} text-lg">${r.invoiceSum.toFixed(2)}</td>
+                        
+                        <td class="px-4 py-3 text-xs leading-tight">${statusHtml}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function openClientModal(clientName) {
+            const history = AppState.clientHistory[clientName] || { records: [] };
+            document.getElementById('modalClientName').innerText = `Аналитика: ${clientName}`;
+            
+            const processedRecords = history.records.map((r, i, arr) => {
+                let isPaid = r.isInvoice;
+                
+                if (i < arr.length - 1) {
+                    const nextAccum = arr[i+1].accum;
+                    if (r.accum > 0 && nextAccum === r.accum) {
+                        isPaid = false; 
+                    }
+                }
+
+                if (i > 0) {
+                    const prevAccum = arr[i-1].accum;
+                    if (prevAccum > 0 && r.accum < prevAccum) {
+                        isPaid = true;
+                    }
+                }
+
+                const methodLimit = THRESHOLDS[r.method.trim()] || 0;
+                const grossSum = r.sum + (r.csvCommission || 0);
+                
+                let isUnderThresholdError = false;
+                if (isPaid && r.sum > 0 && grossSum < methodLimit) {
+                    isPaid = false; 
+                    isUnderThresholdError = true;
+                }
+
+                return { ...r, isPaid, isUnderThresholdError, methodLimit };
+            });
+            
+            const tbody = document.getElementById('modalHistoryTable');
+            if (processedRecords.length > 0) {
+                tbody.innerHTML = processedRecords.map(r => {
+                    let statusBadge = '';
+                    if (r.isUnderThresholdError) {
+                        statusBadge = `<span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded border border-red-500/30 whitespace-nowrap" title="Грязная сумма меньше порога $${r.methodLimit}"><i class="fa-solid fa-ban mr-1"></i>Ошибочная выплата (<$${r.methodLimit})</span>`;
+                    } else if (r.isPaid) {
+                        statusBadge = `<span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30 whitespace-nowrap"><i class="fa-solid fa-check mr-1"></i>Выплачен</span>`;
+                    } else {
+                        statusBadge = `<span class="px-2 py-1 bg-gray-700 text-gray-400 text-xs rounded border border-gray-600 whitespace-nowrap"><i class="fa-solid fa-hourglass-half mr-1"></i>В накоплении</span>`;
+                    }
+
+                    return `
+                    <tr class="hover:bg-gray-800 transition-colors border-b border-gray-800">
+                        <td class="px-4 py-3 font-mono text-gray-300">${r.monthName}</td>
+                        <td class="px-4 py-3">${statusBadge}</td>
+                        <td class="px-4 py-3 text-blue-400 font-mono text-right">${r.sum.toFixed(2)}</td>
+                        <td class="px-4 py-3 text-purple-400 font-mono text-right">${r.accum.toFixed(2)}</td>
+                        <td class="px-4 py-3 text-xs text-gray-500">${r.status || '-'}</td>
+                    </tr>
+                `}).join('');
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-4 py-4 text-center text-gray-500">Нет исторических данных</td></tr>`;
+            }
+
+            const successful = processedRecords.filter(r => r.isPaid);
+            renderChart(successful);
+
+            const modal = document.getElementById('clientModal');
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                document.getElementById('modalContent').classList.remove('scale-95');
+                document.getElementById('modalContent').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('clientModal');
+            modal.classList.add('opacity-0');
+            document.getElementById('modalContent').classList.remove('scale-100');
+            document.getElementById('modalContent').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }, 300);
+        }
+
+        function renderChart(records) {
+            if (AppState.charts.payout) AppState.charts.payout.destroy();
+            Chart.defaults.color = '#9ca3af';
+            Chart.defaults.font.family = 'inherit';
+
+            AppState.charts.payout = new Chart(document.getElementById('payoutChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: records.map(r => r.monthName),
+                    datasets: [{
+                        label: 'Сумма реальной выплаты ($)',
+                        data: records.map(r => r.sum),
+                        backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                        borderColor: 'rgb(59, 130, 246)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { color: 'rgba(75, 85, 99, 0.2)' } }, x: { grid: { display: false } } }
+                }
+            });
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+        document.getElementById('clientModal').addEventListener('click', e => { if (e.target === document.getElementById('clientModal')) closeModal(); });
+
+        window.addEventListener('DOMContentLoaded', autoLoadFiles); 
+    </script>
+</body>
+</html>
