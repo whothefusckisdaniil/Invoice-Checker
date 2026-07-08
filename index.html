@@ -271,7 +271,7 @@
                                         agencyFee: agencyFee,
                                         revenue: netRevenue, 
                                         commission: parseMoney(nr['Transfer commission']),
-                                        deduction: parseMoney(nr['Google Deduction Fact'] || nr['Google Deduction']),
+                                        deduction: parseMoney(nr['Google Deduction '] || nr['Google Deduction ']),
                                         payout: parseMoney(nr['Payout'])
                                     };
                                 }
