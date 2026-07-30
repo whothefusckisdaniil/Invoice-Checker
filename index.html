@@ -177,6 +177,25 @@
     </div>
 
     <script>
+        const BONUS_CLIENTS = new Set([
+            'Колеса', 'hordiq.uz', 'Kon Elena', 'Mukhamedov Samadjon', 'Semyonova Elena', 'TheAdsby Advertising Software Consulting LTD', 'ООО "МЕДЭЛЕМЕНТ-Р"', 'Резницкий Дмитрий', 'Твой шанс ТОО', 'ТОО Nokskz', 'Abdulin Timur', '"Akchabar Media" LLC', 'amma baby', 'baribar.kz', 'bilimdiler.kz', 'ivest.kz', 'kazlenta.kz', 'matinder.kz', 'muz.uz', 'stadion.uz', 'super.kg', 'Коржумбаев Серик', 'ТОО Effective Media Liason', 'ТОО «Total Media Qazaqstan»', '24.kg', 'businessmir.kz', 'ifin.kz', 'martebe.kz', 'PE DROZDOVICH VIKTOR', 'Арман', 'ОсОО Ларексон'
+        ].map(c => c.trim()));
+
+        const PAYSET_LOCAL_CLIENTS = new Set([
+            'Zakharenko Oleksandr', 'Aleksandr Dyakov', 'Dmytro Mysnyk', 'Volodymyr Slavinskyi', 
+            'Albina Alenchyk', 'Natalia Tkalia', 'Alina Kot', 'OLEKSANDR OBORSKYI', 
+            'Denysenko Vsevolod', 'ZUYEV MIKHAIL', 'Igor Levurda', 'Vitalii Bondarenko', 'Olena Drobot'
+        ].map(c => c.trim()));
+
+        const REFERRAL_MAP = new Map([
+            ['Алена Полищук', 'Mykola Lutsiuk'],
+            ['Ольга Скрябина', 'Mykola Lutsiuk'],
+            ['Гульнара Гавриленко', 'Ольга Скрябина'],
+            ['Юлия Белалова', 'Ольга Скрябина'],
+            ['Дмитрий Павлов', 'Anton Shilkov'],
+            ['Anton Shilkov', 'OLEKSII Kurilko']
+        ].map(([referee, referrer]) => [referee.trim(), referrer.trim()]));
+
         const AppState = {
             loadedMonths: [],
             systemData: {},
@@ -203,7 +222,7 @@
             'Payoneer to Payoneer {UAE}': 150,
             'USD': 150,
             'Local from Payset {UAE}': 150,
-            'SWIFT from Payset {UAE}': 500,
+            'SWIFT from Payset {UAE}': 150,
             'SWIFT from BCC {UAE}': 500
         };
 
@@ -261,18 +280,26 @@
                         complete: function(results) {
                             results.data.forEach(r => {
                                 const nr = normalizeRow(r);
-                                if (nr['Client']) {
-                                    const revenueAdSystem = parseMoney(nr['Revenue Ad system'] || nr['Revenue']);
+                                const clientName = nr['Client'] ? nr['Client'].trim() : null;
+                                if (clientName) {
+                                    let revenueAdSystem = parseMoney(nr['Revenue Ad system'] || nr['Revenue']);
                                     const agencyFee = parseMoney(nr['Agency fee']);
+                                    
+                                    // Проверка на бонусного клиента и систему YD
+                                    if (nr['Ad system'] === 'YD' && BONUS_CLIENTS.has(clientName)) {
+                                        revenueAdSystem = 0; // Не считаем доход для таких клиентов
+                                    }
+
                                     const netRevenue = revenueAdSystem - agencyFee; 
 
-                                    AppState.systemData[nr['Client'].trim()] = {
+                                    AppState.systemData[clientName] = {
                                         revenueAdSystem: revenueAdSystem,
                                         agencyFee: agencyFee,
                                         revenue: netRevenue, 
                                         commission: parseMoney(nr['Transfer commission']),
                                         deduction: parseMoney(nr['Google Deduction '] || nr['Google Deduction ']),
-                                        payout: parseMoney(nr['Payout'])
+                                        payout: parseMoney(nr['Payout']),
+                                        adSystem: nr['Ad system'] || ''
                                     };
                                 }
                             });
@@ -427,6 +454,18 @@
         function validateCurrent() {
             AppState.processedResults = [];
 
+            const bonusesToApply = new Map();
+            for (const clientName in AppState.systemData) {
+                const referrer = REFERRAL_MAP.get(clientName.trim());
+                if (referrer) {
+                    const refereeSysData = AppState.systemData[clientName];
+                    if (refereeSysData && refereeSysData.revenue > 0) {
+                        const bonus = refereeSysData.revenue * 0.02;
+                        bonusesToApply.set(referrer, (bonusesToApply.get(referrer) || 0) + bonus);
+                    }
+                }
+            }
+
             AppState.currentData.forEach(r => {
                 const row = normalizeRow(r);
                 const errorField = row['Ошибка'] ? row['Ошибка'].trim() : '';
@@ -445,8 +484,16 @@
                     invoiceAccum, invoiceSum, 
                     sysRevenueAdSystem: 0, sysAgencyFee: 0, sysRevenue: 0, sysDeduction: 0, sysPayout: 0,
                     calculatedCommission: 0,
-                    errors: []
+                    errors: [],
+                    notices: []
                 };
+
+                if (bonusesToApply.has(client)) {
+                    const bonus = bonusesToApply.get(client);
+                    if (bonus > 0) {
+                        result.notices.push(`Добавить бонус: $${bonus.toFixed(2)}`);
+                    }
+                }
 
                 const history = AppState.clientHistory[client];
                 const sys = AppState.systemData[client];
@@ -454,6 +501,10 @@
 
                 if (!ALLOWED_METHODS.includes(method)) {
                     result.errors.push("Сменить метод выплаты (не найден в списке)");
+                }
+
+                if (method === 'Local from Payset {UAE}' && !PAYSET_LOCAL_CLIENTS.has(client)) {
+                    result.errors.push("Этому клиенту нельзя платить по методу Local from Payset");
                 }
 
                 if (!sys) {
@@ -598,8 +649,14 @@
             tbody.innerHTML = data.map(r => {
                 const hasError = r.errors.length > 0;
                 
+                const noticesHtml = (r.notices || []).map(n => `<span class="block text-cyan-400 mb-1 font-medium"><i class="fa-solid fa-star text-[10px] mr-1"></i>${n}</span>`).join('');
                 const errorsHtml = r.errors.map(e => `<span class="block text-red-400 mb-1 font-medium"><i class="fa-solid fa-circle-exclamation text-[10px] mr-1"></i>${e}</span>`).join('');
-                const statusHtml = hasError ? errorsHtml : `<span class="text-green-500 font-bold"><i class="fa-solid fa-check mr-1"></i>Сходится</span>`;
+                
+                let statusHtml = noticesHtml + errorsHtml;
+
+                if (r.errors.length === 0 && (r.notices || []).length === 0) {
+                    statusHtml = `<span class="text-green-500 font-bold"><i class="fa-solid fa-check mr-1"></i>Сходится</span>`;
+                }
 
                 return `
                     <tr class="hover:bg-gray-700/50 transition-colors cursor-pointer group border-b border-gray-800" onclick="openClientModal('${r.client.replace(/'/g, "\\'")}')">
@@ -659,7 +716,9 @@
             if (processedRecords.length > 0) {
                 tbody.innerHTML = processedRecords.map(r => {
                     let statusBadge = '';
-                    if (r.isUnderThresholdError) {
+                    if (r.monthIdx === AppState.currentMonthIdx && r.isInvoice) {
+                        statusBadge = `<span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded border border-blue-500/30 whitespace-nowrap"><i class="fa-solid fa-hourglass-start mr-1"></i>Готовится выплата</span>`;
+                    } else if (r.isUnderThresholdError) {
                         statusBadge = `<span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded border border-red-500/30 whitespace-nowrap" title="Грязная сумма меньше порога $${r.methodLimit}"><i class="fa-solid fa-ban mr-1"></i>Ошибочная выплата (<$${r.methodLimit})</span>`;
                     } else if (r.isPaid) {
                         statusBadge = `<span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30 whitespace-nowrap"><i class="fa-solid fa-check mr-1"></i>Выплачен</span>`;
