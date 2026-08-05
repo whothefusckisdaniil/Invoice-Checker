@@ -184,7 +184,7 @@
         const PAYSET_LOCAL_CLIENTS = new Set([
             'Zakharenko Oleksandr', 'Aleksandr Dyakov', 'Dmytro Mysnyk', 'Volodymyr Slavinskyi', 
             'Albina Alenchyk', 'Natalia Tkalia', 'Alina Kot', 'OLEKSANDR OBORSKYI', 
-            'Denysenko Vsevolod', 'ZUYEV MIKHAIL', 'Igor Levurda', 'Vitalii Bondarenko', 'Olena Drobot', 'Breakpoint SIA'
+            'Denysenko Vsevolod', 'ZUYEV MIKHAIL', 'Igor Levurda', 'Vitalii Bondarenko', 'Olena Drobot', 'Breakpoint SIA', 'Espikon_Trading_Limited'
         ].map(c => c.trim()));
 
         const REFERRAL_MAP = new Map([
@@ -290,17 +290,33 @@
                                         revenueAdSystem = 0; // Не считаем доход для таких клиентов
                                     }
 
-                                    const netRevenue = revenueAdSystem - agencyFee; 
-
-                                    AppState.systemData[clientName] = {
-                                        revenueAdSystem: revenueAdSystem,
-                                        agencyFee: agencyFee,
-                                        revenue: netRevenue, 
-                                        commission: parseMoney(nr['Transfer commission']),
-                                        deduction: parseMoney(nr['Google Deduction '] || nr['Google Deduction ']),
-                                        payout: parseMoney(nr['Payout']),
-                                        adSystem: nr['Ad system'] || ''
+                                    // В current.csv клиент может быть указан в нескольких строках —
+                                    // по одной на рекламную сеть. Складываем все строки, а не
+                                    // оставляем только последнюю сеть из файла.
+                                    const systemData = AppState.systemData[clientName] || {
+                                        revenueAdSystem: 0,
+                                        agencyFee: 0,
+                                        revenue: 0,
+                                        commission: 0,
+                                        deduction: 0,
+                                        payout: 0,
+                                        adSystems: []
                                     };
+
+                                    systemData.revenueAdSystem += revenueAdSystem;
+                                    systemData.agencyFee += agencyFee;
+                                    systemData.revenue = systemData.revenueAdSystem - systemData.agencyFee;
+                                    systemData.commission += parseMoney(nr['Transfer commission']);
+                                    // normalizeRow() убирает пробелы в заголовках.
+                                    systemData.deduction += parseMoney(nr['Google Deduction']);
+                                    systemData.payout += parseMoney(nr['Payout']);
+
+                                    const adSystem = (nr['Ad system'] || '').trim();
+                                    if (adSystem && !systemData.adSystems.includes(adSystem)) {
+                                        systemData.adSystems.push(adSystem);
+                                    }
+
+                                    AppState.systemData[clientName] = systemData;
                                 }
                             });
                         }
