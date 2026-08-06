@@ -1,6 +1,6 @@
 Клиент,Менеджер,Валюта,Метод перевода,Коммисия на перевод,Накопления,Наш дедакшн,Сумма,Ошибка,Статус
 Breakpoint SIA,Daniil Reznikov,USD,Local from Payset {UAE},0,0,0,"65781,54",Создастся Инвойс,FALSE
-Maksym Sierkov,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"19,79",0,0,"1565,34",Создастся Инвойс,FALSE
+Maksym Sierkov,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"1563,84",Создастся Инвойс,FALSE
 Akipress,Akzhan Abdullina,USD,SWIFT from ADIB {UAE},"41,5","742,75",0,"1209,73",Создастся Инвойс,FALSE
 ФОП ГОРБАЧОВ Сергей,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0,"428,66",0,"429,59",Не достиг лимита,FALSE
 Marketplace LLC,Anastasia Bulgakova,USD,SWIFT from ADIB {UAE},0,"5,18",0,"5,18",Не достиг лимита,FALSE
@@ -19,7 +19,7 @@ Bolybik Volodymyr,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"39,74",0
 Bulat Dmytro,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"623,08",Создастся Инвойс,FALSE
 Khanin Dmytro,Anastasia Bulgakova,USD,SWIFT from Payset {UAE},30,0,0,"1244,24",Создастся Инвойс,FALSE
 Kokot Dmytro,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"72,96",0,"72,96",Не достиг лимита,FALSE
-Dyakova Kateryna,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"1,81","2477,76",0,"2589,27",Создастся Инвойс,FALSE
+Dyakova Kateryna,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"1,81","2487,49",0,2599,Создастся Инвойс,FALSE
 Siur Hanna,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,31","52,14",0,"83,31",Не достиг лимита,FALSE
 Iesipovych Ievgen,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"1,52",0,"1,52",Не достиг лимита,FALSE
 Balabai Ihor,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,12","10,57",0,"22,46",Не достиг лимита,FALSE
@@ -40,7 +40,7 @@ Piskovetskyi Ruslan,Saniya Berzhanova,USD,Payoneer to Payoneer {UAE},0,0,0,0,Н�
 Espikon_Trading_Limited,Daniil Reznikov,USD,Local from Payset {UAE},0,"137,68",0,"196,14",Создастся Инвойс,FALSE
 Bielov Serhii,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"125,73",0,"125,73",Не достиг лимита,FALSE
 Biloshytskyi Serhii,Anastasia Bulgakova,USD,USD,"7,02",0,0,"133,43",Не достиг лимита,FALSE
-Balazanov Vadym,Daniil Reznikov,USD,Local from Payset {UAE},0,"66,56",0,"124,16",Не достиг лимита,FALSE
+Balazanov Vadym,Daniil Reznikov,USD,Local from Payset {UAE},0,"66,56",0,"125,23",Не достиг лимита,FALSE
 Buria Vitalii,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"10,28",0,"10,33",Не достиг лимита,FALSE
 Reva Vitalii,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,04","7,2",0,"11,21",Не достиг лимита,FALSE
 Yezhenova Karlygash,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0,"155,53",0,"155,53",Не достиг лимита,FALSE
@@ -48,7 +48,7 @@ Abdulin Timur,Anastasia Bulgakova,USD,SWIFT from ADIB {UAE},0,"118,02",0,"118,03
 Krenytskyi Oleksandr,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"27,25",0,"27,25",Не достиг лимита,FALSE
 Shaida Oleksandr,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"4,66",0,0,"161,56",Создастся Инвойс,FALSE
 Bachkovska Nataliia,Daniil Reznikov,USD,USD,"1,12",0,0,"21,22",Не достиг лимита,FALSE
-Bielimov Oleksandr,Anastasia Bulgakova,USD,USD,"7,35",0,0,"139,63",Не достиг лимита,FALSE
+Bielimov Oleksandr,Anastasia Bulgakova,USD,USD,"7,4",0,0,"140,66",Не достиг лимита,FALSE
 Bielousov Serhii,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"0,01","31,83",0,"33,3",Не достиг лимита,FALSE
 Bohorada Volodymyr,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"4,3",0,"4,3",Не достиг лимита,FALSE
 Panenko Viktor,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"0,01","92,68",0,"93,18",Не достиг лимита,FALSE
@@ -112,7 +112,7 @@ Darina Mysnyk,Akzhan Abdullina,USD,Payoneer to Payoneer {UAE},7,0,0,"393,42",С�
 OLEKSANDR OBORSKYI,Anastasia Bulgakova,USD,Local from Payset {UAE},0,"128,65",0,"219,8",Создастся Инвойс,FALSE
 SHKIMBOV VITALII,Daniil Reznikov,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 SHAHOVSKYI ARTEM,Akzhan Abdullina,USD,SWIFT from Payset {UAE},30,0,0,"1187,71",Создастся Инвойс,FALSE
-Oleksandr Oliinyk,Anastasia Bulgakova,USD,USD,"124,87",0,0,"2372,59",Создастся Инвойс,FALSE
+Oleksandr Oliinyk,Anastasia Bulgakova,USD,USD,"125,23",0,0,"2379,3",Создастся Инвойс,FALSE
 ANASTASIJA FOKOVA,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,01",27,0,"27,79",Не достиг лимита,FALSE
 DMYTRO OLEFYRENKO,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"20,6",0,"20,6",Не достиг лимита,FALSE
 Aleksandr Dyakov,Anastasia Bulgakova,USD,Local from Payset {UAE},0,"718,57",0,"879,64",Создастся Инвойс,FALSE
@@ -123,14 +123,14 @@ Chigasov Yakov,Sanzhar Maidan,USD,Нет,0,"23,09",0,"23,09",Не достиг �
 Zubko Sergey,Daniil Reznikov,USD,Нет,0,"93,62",0,"93,68",Не достиг лимита,FALSE
 Pulov Kirill,Amir Askar,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 Petrenko Alexandr,Daniil Reznikov,USD,USD,"0,09","44,01",0,"45,74",Не достиг лимита,FALSE
-Iryna Kryshkevych,Akzhan Abdullina,USD,Payoneer to Payoneer {UAE},"11,73",0,0,"721,16",Создастся Инвойс,FALSE
+Iryna Kryshkevych,Akzhan Abdullina,USD,Payoneer to Payoneer {UAE},"11,77",0,0,"723,82",Создастся Инвойс,FALSE
 Aleksandr Podkovirkin,Akzhan Abdullina,USD,SWIFT from Payset {UAE},30,0,0,"181,37",Создастся Инвойс,FALSE
 Elena Maksimova,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"5,9",0,0,"283,81",Создастся Инвойс,FALSE
 Падалко Анна,Sanzhar Maidan,USD,Payoneer to Payoneer {UAE},0,"10,81",0,"10,81",Не достиг лимита,FALSE
 Lepskyi Oleg,Sanzhar Maidan,USD,Нет,0,"3,39",0,"3,39",Не достиг лимита,FALSE
 Nemtsova Anastassiya,Irina Kir,USD,Нет,0,"18,85",0,"18,85",Не достиг лимита,FALSE
 Oleksii Oliinyk,Daniil Reznikov,USD,Local from Payset {UAE},0,0,0,"0,01",Не достиг лимита,FALSE
-SERHII KUSHNIRUK,Akzhan Abdullina,USD,USD,"36,91",0,0,"701,33",Создастся Инвойс,FALSE
+SERHII KUSHNIRUK,Akzhan Abdullina,USD,USD,"37,13",0,0,"705,49",Создастся Инвойс,FALSE
 Moskovchuk Vladislav,Daniil Reznikov,USD,Нет,0,"22,91",0,"22,91",Не достиг лимита,FALSE
 Levashov Sergey,Daniil Reznikov,USD,USD,"0,43","91,44",0,"99,66",Не достиг лимита,FALSE
 Shemet Aleksey,Anastasia Bulgakova,USD,USD,"0,46","30,72",0,"39,38",Не достиг лимита,FALSE
@@ -166,7 +166,7 @@ Dubinin Igor,Daniil Reznikov,USD,USD,"143,39",0,0,"2724,45",Создастся �
 Anatolii Kravchenko,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"15,15",0,"15,15",Не достиг лимита,FALSE
 Roman Makarenok,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"862,44",Создастся Инвойс,FALSE
 Zelenin Semen,Anastasia Bulgakova,USD,USD,"0,06","97,34",0,"98,41",Не достиг лимита,FALSE
-Serhii Lozunko,Daniil Reznikov,USD,SWIFT from Payset {UAE},"29,22",0,0,"721,96",Создастся Инвойс,FALSE
+Serhii Lozunko,Daniil Reznikov,USD,SWIFT from Payset {UAE},30,0,0,"727,38",Создастся Инвойс,FALSE
 Zolenko Andrii,Daniil Reznikov,USD,USD,"3,14",0,0,"59,68",Не достиг лимита,FALSE
 Semyonova Elena,Akzhan Abdullina,USD,USD,"7,63",0,0,"145,03",Создастся Инвойс,FALSE
 Serhii Babitskyi,Aizhan Zhussupova,USD,USD,0,0,0,0,Не достиг лимита,FALSE
@@ -184,7 +184,7 @@ Volodymyr Hnatyk,Daniil Reznikov,USD,USD,"0,22","56,68",0,"60,93",Не дост�
 Dmytro Anikin,Akzhan Abdullina,USD,USD,"9,74",0,0,"185,04",Создастся Инвойс,FALSE
 Denis Kibardin,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"12,27",0,"12,27",Не достиг лимита,FALSE
 Olha Petrus,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"87,03",0,"87,03",Не достиг лимита,FALSE
-Exler,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"20,3","-0,335",0,"802,97",Создастся Инвойс,FALSE
+Exler,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3","-0,335",0,"801,97",Создастся Инвойс,FALSE
 PE DROZDOVICH VIKTOR,Daniil Reznikov,USD,SWIFT from BCC {UAE},15,0,0,"3202,89",Создастся Инвойс,FALSE
 Zakharenko Oleksandr,Daniil Reznikov,USD,Local from Payset {UAE},0,0,0,"6826,27",Создастся Инвойс,FALSE
 RIDDEC TECHNOLOGYS,Akzhan Abdullina,USD,Local from Payset {UAE},0,"4896,03",0,"5095,8",Создастся Инвойс,FALSE
@@ -209,7 +209,7 @@ OLEH ANDRONIK,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"0,02","118,89",0,"
 Oleksandr Pataman,Daniil Reznikov,USD,USD,"0,47","33,51",0,"42,45",Не достиг лимита,FALSE
 Oleh Kushnir,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"75,85",0,76,Не достиг лимита,FALSE
 Serhii Hetman,Asiya Kilybayeva,USD,Payoneer to Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
-Vadim Sukhyi,Akzhan Abdullina,USD,SWIFT from ADIB {UAE},"14,38",0,0,"15346,13",Создастся Инвойс,FALSE
+Vadim Sukhyi,Akzhan Abdullina,USD,SWIFT from ADIB {UAE},15,0,0,"15345,51",Создастся Инвойс,FALSE
 Антон Рошко,Anastasia Bulgakova,USD,USD,"71,85",0,0,"1365,13",Создастся Инвойс,FALSE
 ФОП Петров Александр,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"149,15",0,"149,15",Не достиг лимита,FALSE
 Лысогор Дмитрий / IRYNA LYSOHOR,Daniil Reznikov,USD,USD,"88,92",0,0,"1689,58",Создастся Инвойс,FALSE
@@ -240,7 +240,7 @@ Komov Roman,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,0,0,0,Не дост
 Kon Elena,Akzhan Abdullina,USD,Нет,0,"0,04",0,"0,04",Не достиг лимита,FALSE
 Krivonosov Dmytro,Anastasia Bulgakova,USD,USD,0,"40,94",0,"40,94",Не достиг лимита,FALSE
 Krokhmaliuk Maksym,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,05","38,13",0,"42,75",Не достиг лимита,FALSE
-Polyanskyi Ivan,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"1,13",0,0,"112,19",Не достиг лимита,FALSE
+Polyanskyi Ivan,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"1,17",0,0,"115,35",Не достиг лимита,FALSE
 test_client,admin,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
 test_baha,admin,USD,SWIFT from ADIB {UAE},0,0,0,0,Не достиг лимита,FALSE
 Daniil Shevchenko,Daniil Reznikov,USD,USD,"1,37","24,8",0,"50,77",Не достиг лимита,FALSE
@@ -328,7 +328,7 @@ Muradov Ilkin Vaqif Oglu,Daniil Reznikov,USD,SWIFT from ADIB {UAE},"41,5","553,9
 Иванов Александр,Daniil Reznikov,USD,USD,0,"7,12",0,"7,19",Не достиг лимита,FALSE
 Oleg Kaminskij,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"2,9",0,"2,9",Не достиг лимита,FALSE
 Yaroslav Sochka,Anastasia Bulgakova,USD,USD,0,"110,45",0,"111,04",Не достиг лимита,FALSE
-Ivan Kazakov,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"9,02",0,0,"554,86",Создастся Инвойс,FALSE
+Ivan Kazakov,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"9,07",0,0,"558,04",Создастся Инвойс,FALSE
 Anton Pipich,Aizhan Zhussupova,USD,Payoneer to Payoneer {UAE},0,"0,02",0,"0,02",Не достиг лимита,FALSE
 Trend AIA LLC,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0,"225,33",0,"225,33",Не достиг лимита,FALSE
 UBI MEDIA FZE LLC / Delux Team,Anastasia Bulgakova,USD,SWIFT from Airwallex {SG},0,"135,43",0,"135,43",Не достиг лимита,FALSE
@@ -345,12 +345,12 @@ Oleksandr Shalukhin,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"145,35
 Yevhenii Chekanovskyi,Aizhan Zhussupova,USD,Payoneer to Payoneer {UAE},0,"91,65",0,"91,65",Не достиг лимита,FALSE
 Yevhenii Denysiuk,Saniya Berzhanova,USD,Payoneer to Payoneer {UAE},0,"4,75",0,"4,75",Не достиг лимита,FALSE
 Oleh Hospodarets,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"3,03","161,8",0,"162,12",Создастся Инвойс,FALSE
-RUDYK STEPAN,Daniil Reznikov,USD,USD,"2,79",0,0,"52,94",Не достиг лимита,FALSE
+RUDYK STEPAN,Daniil Reznikov,USD,USD,"2,8",0,0,"53,28",Не достиг лимита,FALSE
 Oksana Vinichuk,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
 Tetjana Nikulina,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"0,02","108,49",0,"110,13",Не достиг лимита,FALSE
 Bulavin Alexandr,Anastasia Bulgakova,USD,USD,"5,25",0,0,"99,79",Не достиг лимита,FALSE
 Andros Evgeniy,Amir Askar,USD,USD,0,"67,05",0,"67,05",Не достиг лимита,FALSE
-Yaroslav Molchan,Daniil Reznikov,USD,Нет,0,"41,17",0,"42,38",Не достиг лимита,FALSE
+Yaroslav Molchan,Daniil Reznikov,USD,Нет,0,"41,17",0,"42,4",Не достиг лимита,FALSE
 Sholtoyany Svetlana,Sanzhar Maidan,USD,Нет,0,"16,73",0,"16,73",Не достиг лимита,FALSE
 Тарас Усатый,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"1,89",0,"1,99",Не достиг лимита,FALSE
 Юрий Литвинов,Anastasia Bulgakova,USD,Local from Payset {UAE},0,"25,65",0,"25,65",Не достиг лимита,FALSE
@@ -362,7 +362,7 @@ Yaroslav Zin,Akzhan Abdullina,USD,Payoneer to Payoneer {UAE},0,"108,73",0,"108,7
 Вячеслав Пшеничный,Daniil Reznikov,USD,Нет,0,"29,11",0,"29,11",Не достиг лимита,FALSE
 Hopka Ruslana,Sanzhar Maidan,USD,Payoneer to Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
 Денис Лесной,Daniil Reznikov,USD,Нет,0,"19,08",0,"19,08",Не достиг лимита,FALSE
-Dmytro Sokil,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},18,0,0,"1106,81",Создастся Инвойс,FALSE
+Dmytro Sokil,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},18,0,0,"1107,14",Создастся Инвойс,FALSE
 Vitaliy Razumeichik,Daniil Reznikov,USD,Нет,0,"32,05",0,"32,05",Не достиг лимита,FALSE
 Zabrodskyi Serhii,Sanzhar Maidan,USD,Payoneer to Payoneer {UAE},0,"50,7",0,"50,7",Не достиг лимита,FALSE
 Zatsepina Alvina,Sanzhar Maidan,USD,Нет,0,"118,68",0,"118,68",Не достиг лимита,FALSE
@@ -419,7 +419,7 @@ Khalatyan Zaruhi,Hakim Gainiuly,USD,SWIFT from Payoneer {UAE},0,"3,45",0,"3,45",
 Viktoriia Kolomoiets,Daniil Reznikov,USD,Нет,0,"95,61",0,"95,61",Не достиг лимита,FALSE
 Stanislav Cherniavskyi,Emil Ponomarev,USD,Payoneer to Payoneer {UAE},0,"95,6",0,"95,6",Не достиг лимита,FALSE
 Mkrtich Martirosyan,Hakim Gainiuly,USD,SWIFT from Payoneer {UAE},0,"-14,83",0,"-14,83",Не достиг лимита,FALSE
-Alina Kot,Akzhan Abdullina,USD,Local from Payset {UAE},0,0,0,"148,61",Не достиг лимита,FALSE
+Alina Kot,Akzhan Abdullina,USD,Local from Payset {UAE},0,0,0,"149,83",Не достиг лимита,FALSE
 Andrii Hrynchuk,Sanzhar Maidan,USD,Нет,0,"47,36",0,"47,36",Не достиг лимита,FALSE
 Юрий Рубан,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"3,02","149,15",0,"148,04",Создастся Инвойс,FALSE
 Дмитрий Злобин,Anastasia Bulgakova,USD,USD,0,"85,8",0,"85,8",Не достиг лимита,FALSE
@@ -447,8 +447,8 @@ Maryna Galchenko,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"134,58",0,"13
 Bozhedomova Yana,Anastasia Bulgakova,USD,SWIFT from ADIB {UAE},0,"38,94",0,"40,12",Не достиг лимита,FALSE
 Виктор Гурин,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
 Vadym Kukharenko,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
-Netkor OU,Anastasia Bulgakova,USD,SWIFT from WIO {UAE},"21,09",0,0,"816,57",Создастся Инвойс,FALSE
-Vitalii Chepelivskyi,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"3,62","140,75",0,"208,14",Создастся Инвойс,FALSE
+Netkor OU,Anastasia Bulgakova,USD,SWIFT from WIO {UAE},"21,3",0,0,"816,36",Создастся Инвойс,FALSE
+Vitalii Chepelivskyi,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"3,71","140,75",0,"208,05",Создастся Инвойс,FALSE
 Viktor Lysak,Daniil Reznikov,USD,USD,0,"27,64",0,"42,38",Не достиг лимита,FALSE
 Petro Tahaiev,Anastasia Bulgakova,USD,USD,"2,02","87,27",0,"125,67",Не достиг лимита,FALSE
 YEVHEN BEBKO,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"121,28",0,"121,32",Не достиг лимита,FALSE
@@ -487,7 +487,7 @@ Ivan Chernousov,Akzhan Abdullina,USD,Payoneer to Payoneer {UAE},0,"16,74",0,"16,
 Zaika Nazarij,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,07","137,94",0,"144,69",Не достиг лимита,FALSE
 Artem Simonenko,Anastasia Bulgakova,USD,USD,0,"3,63",0,"3,63",Не достиг лимита,FALSE
 Viktor Sorochenko,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"0,1","59,7",0,"70,08",Не достиг лимита,FALSE
-Irina Sventkovskaya,Akzhan Abdullina,USD,USD,0,"318,6",0,"318,6",Создастся Инвойс,FALSE
+Irina Sventkovskaya,Akzhan Abdullina,USD,USD,0,"318,61",0,"318,61",Создастся Инвойс,FALSE
 TETEIANA BARANOVSKA,Sanzhar Maidan,USD,Payoneer to Payoneer {UAE},0,"30,86",0,"30,86",Не достиг лимита,FALSE
 Serhii Markovych,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"65,3",0,"65,35",Не достиг лимита,FALSE
 Igor Fritskyi,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"130,74",0,"130,74",Не достиг лимита,FALSE
@@ -633,11 +633,12 @@ uznews.uz,Sanzhar Maidan,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
 Oleh Yablunovskyi,Anastasia Bulgakova,USD,USD,"7,19","94,01",0,"230,57",Создастся Инвойс,FALSE
 Leadership Group Ltd,Anastasia Bulgakova,USD,SWIFT from Payoneer {UAE},0,"78,82",0,"78,82",Не достиг лимита,FALSE
 Artur Petriv,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"0,01","89,15",0,"90,34",Не достиг лимита,FALSE
+InAlmaty.kz,Asiya Kilybayeva,KZT,SWIFT from KZ,0,0,0,0,Не достиг лимита,FALSE
 uzbaza.uz,Saniya Berzhanova,USD,USD,0,"6,34",0,"6,34",Не достиг лимита,FALSE
 Володьков Дмитрий,Anastasia Bulgakova,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 Khashimov Bakhtiyor Sobirjonovich,Emil Ponomarev,USD,SWIFT from Payoneer {UAE},0,"27,43",0,"27,43",Не достиг лимита,FALSE
 Bakhtiyor Khashimov,Asiya Kilybayeva,USD,SWIFT from Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
-Zakharenko Oleksandr USDT,Daniil Reznikov,USD,USD,"238,26",0,0,"5718,35",Создастся Инвойс,FALSE
+Zakharenko Oleksandr USDT,Daniil Reznikov,USD,USD,"238,26",0,0,"5718,36",Создастся Инвойс,FALSE
 Season.guru,Anastasia Bulgakova,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 Dmitrii Denisenko,Emil Ponomarev,USD,SWIFT from Payoneer {UAE},0,"-4,92",0,"-4,92",Не достиг лимита,FALSE
 blueprint.ng,Emil Ponomarev,USD,USD,0,"5,24",0,"5,24",Не достиг лимита,FALSE
@@ -733,7 +734,7 @@ Ruslan,Emil Ponomarev,USD,USD,0,"10,98",0,"10,98",Не достиг лимита
 Yurii Hil,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},0,"0,07",0,"0,07",Не достиг лимита,FALSE
 SHINIAEV BORIS,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"3193,23",Создастся Инвойс,FALSE
 Донжуп Доптан-оол,Anastasia Bulgakova,USD,USD,0,"149,77",0,"149,77",Не достиг лимита,FALSE
-Anastasiia Korzh,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"5,21",0,0,"231,5",Создастся Инвойс,FALSE
+Anastasiia Korzh,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},"5,4",0,0,"234,42",Создастся Инвойс,FALSE
 ТОО Neten,Akzhan Abdullina,USD,SWIFT from ADIB {UAE},"41,5",0,0,"3451,3",Создастся Инвойс,FALSE
 Камышников Никита,Anastasia Bulgakova,USD,USD,"1,81",0,0,"34,32",Не достиг лимита,FALSE
 Olena Drobot,Daniil Reznikov,USD,Local from Payset {UAE},0,0,0,"23,23",Не достиг лимита,FALSE
@@ -763,6 +764,7 @@ Zagirov Roman,Asiya Kilybayeva,USD,SWIFT from Payoneer {UAE},0,0,0,0,Не дос
 Руслан (идеи на миллион),Daniil Reznikov,USD,USD,0,"112,92",0,"112,92",Не достиг лимита,FALSE
 Askar Aituov,Amir Askar,USD,SWIFT from ADIB {UAE},0,0,0,0,Не достиг лимита,FALSE
 Арсений Нецветаев,Emil Ponomarev,USD,USD,0,0,0,0,Не достиг лимита,FALSE
+Толк,Emil Ponomarev,RUB,SWIFT from KZ,0,0,0,0,Не достиг лимита,FALSE
 Инна Лавицкая,Anastasia Bulgakova,USD,Local from Payset {UAE},0,"155,46",0,"182,22",Создастся Инвойс,FALSE
 Dias Kariev,Asiya Kilybayeva,USD,USD,0,"6,32",0,"6,32",Не достиг лимита,FALSE
 Yerbol Kairov,Hakim Gainiuly,USD,SWIFT from Payoneer {UAE},0,"43,78",0,"43,78",Не достиг лимита,FALSE
@@ -778,7 +780,7 @@ Yerkebulan Kuanbay,Anastasia Bulgakova,USD,USD,"0,67","13,62",0,"26,37",Не д�
 Ruslan Bogota,Daniil Reznikov,USD,USD,0,"38,48",0,"38,48",Не достиг лимита,FALSE
 Tala Games,Anastasia Bulgakova,USD,SWIFT from WIO {UAE},"21,3",0,0,"19264,53",Создастся Инвойс,FALSE
 Эдуард Гончаров,Amir Askar,USD,USD,0,0,0,0,Не достиг лимита,FALSE
-Flyads,Anastasia Bulgakova,USD,SWIFT from ADIB {UAE},"41,27",0,0,"477,74",Создастся Инвойс,FALSE
+Flyads,Anastasia Bulgakova,USD,SWIFT from ADIB {UAE},"41,5",0,0,"477,51",Создастся Инвойс,FALSE
 КРИСТИ ТРЭВЕЛ,Anastasia Bulgakova,USD,SWIFT from Nurbank {UAE},0,"17,44",0,"19,42",Не достиг лимита,FALSE
 Andrii Tryshyn,Aizhan Zhussupova,USD,SWIFT from Payoneer {UAE},0,-15,0,-15,Не достиг лимита,FALSE
 TDS HB,admin,USD,Нет,0,"429,63",0,"431,64",Не достиг лимита,FALSE
@@ -789,7 +791,7 @@ adplay,Anastasia Bulgakova,USD,USD,0,"142,44",0,"142,44",Не достиг ли�
 v5.vost.pw,Anastasia Bulgakova,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 BYRIL,admin,USD,SWIFT from Nurbank {SG},0,"99,67",0,"101,64",Не достиг лимита,FALSE
 Максим Пляскин,Daniil Reznikov,USD,USD,0,"14,36",0,"14,36",Не достиг лимита,FALSE
-Сергей politnavigator.net,Anastasia Bulgakova,USD,USD,"52,17",0,0,"991,2",Создастся Инвойс,FALSE
+Сергей politnavigator.net,Anastasia Bulgakova,USD,USD,"52,8",0,0,"1003,15",Создастся Инвойс,FALSE
 cenotavr.ru Денис,Daniil Reznikov,USD,USD,"4,71","133,36",0,"222,76",Создастся Инвойс,FALSE
 bobsoccer.ru,Aizhan Zhussupova,USD,USD,0,"-1,7",0,"-1,7",Не достиг лимита,FALSE
 zvukipro.com,Anastasia Bulgakova,USD,USD,0,"1,87",0,"1,87",Не достиг лимита,FALSE
@@ -805,7 +807,7 @@ mychords.net,Daniil Reznikov,USD,USD,"3,25",0,0,"61,69",Не достиг лим
 Dulskyi Artem,Akzhan Abdullina,USD,USD,0,"11,38",0,"11,38",Не достиг лимита,FALSE
 Антон Пальчиков,Anastasia Bulgakova,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 RevIQ,Anastasia Bulgakova,USD,SWIFT from WIO {UAE},0,"1,53",0,"6,71",Не достиг лимита,FALSE
-Артем Фоменко,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"19,86",0,0,"2051,41",Создастся Инвойс,FALSE
+Артем Фоменко,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"2057,11",Создастся Инвойс,FALSE
 Felix flightera.net,Daniil Reznikov,USD,Local from Payset {UAE},0,"9,54",0,"21,94",Не достиг лимита,FALSE
 YSO Corp,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"2838,69",Создастся Инвойс,FALSE
 Anton Shilkov,Akzhan Abdullina,USD,USD,"30,84",0,0,"585,93",Создастся Инвойс,FALSE
@@ -828,7 +830,7 @@ anguis.su,Anastasia Bulgakova,USD,USD,0,0,0,0,Не достиг лимита,FAL
 Ruslan Kamalov,Akzhan Abdullina,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 kinogo.ec,Anastasia Bulgakova,USD,USD,0,"100,33",0,"100,33",Не достиг лимита,FALSE
 Ivan Shipchin,Anastasia Bulgakova,USD,USD,"4,12","90,7",0,"169,06",Создастся Инвойс,FALSE
-TDS VPAID,admin,USD,Нет,0,"469,44",0,"656,26",Неправильные платежные данные или договор,FALSE
+TDS VPAID,admin,USD,Нет,0,"469,44",0,"747,2",Неправильные платежные данные или договор,FALSE
 ООО Стеллио Софт,Akzhan Abdullina,USD,SWIFT from BCC {UAE},54,"1855,55",0,"2158,6",Создастся Инвойс,FALSE
 Mult-fan.tv,Daniil Reznikov,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 Дмитрий Павлов,Akzhan Abdullina,USD,USD,"6,6",0,0,"125,37",Не достиг лимита,FALSE
@@ -836,7 +838,7 @@ I.M.A. SOFTWARE FUTURE SOLUTIONS LTD,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0
 D.Dreams Games,Daniil Reznikov,USD,SWIFT from Payoneer {UAE},0,"284,17",0,"284,18",Не достиг лимита,FALSE
 Readli.net,Daniil Reznikov,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 SSMAS,Anastasia Bulgakova,USD,SWIFT from Payoneer {UAE},0,"113,22",0,"113,22",Не достиг лимита,FALSE
-Pavel anilibria,Anastasia Bulgakova,USD,USD,"7,35","116,56",0,"256,16",Создастся Инвойс,FALSE
+Pavel anilibria,Anastasia Bulgakova,USD,USD,"7,93","116,56",0,"267,31",Создастся Инвойс,FALSE
 Игорь Криница,Anastasia Bulgakova,USD,USD,0,"80,22",0,"80,22",Не достиг лимита,FALSE
 Дмитрий pozdravok.com,Anastasia Bulgakova,USD,USD,"74,52",0,0,"1415,94",Создастся Инвойс,FALSE
 Mangaread.org,Daniil Reznikov,USD,USD,0,"7,65",0,"7,65",Не достиг лимита,FALSE
@@ -853,7 +855,7 @@ Nikolay Ursulyak,Anastasia Bulgakova,USD,USD,0,"30,19",0,"30,19",Не дости
 Kinostream,Asiya Kilybayeva,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
 UMG,Asiya Kilybayeva,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
 adspector,Asiya Kilybayeva,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
-Игорь litlib.net,Anastasia Bulgakova,USD,USD,"23,96",0,0,"455,26",Создастся Инвойс,FALSE
+Игорь litlib.net,Anastasia Bulgakova,USD,USD,"24,01",0,0,"456,22",Создастся Инвойс,FALSE
 Mediasniper,Asiya Kilybayeva,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
 Hung,Daniil Reznikov,USD,USD,0,0,0,0,Не достиг лимита,FALSE
 PubPower,Daniil Reznikov,USD,SWIFT from WIO {UAE},0,0,0,0,Не достиг лимита,FALSE
@@ -865,6 +867,7 @@ testNew,admin,KZT,SWIFT from Airwallex {SG},0,0,0,0,Не достиг лимит
 MGID,Daniil Reznikov,USD,SWIFT from WIO {UAE},0,"8518,7",0,"8518,7",Создастся Инвойс,FALSE
 Ольга Скрябина,Anastasia Bulgakova,USD,USD,"11,71",0,0,"222,56",Создастся Инвойс,FALSE
 Алена Полищук,Anastasia Bulgakova,USD,USD,"1,45","127,97",0,"155,43",Создастся Инвойс,FALSE
+qrnews.kz,Anastasia Bulgakova,KZT,SWIFT from KZ,0,0,0,0,Не достиг лимита,FALSE
 TTTT,Менеджер не указан,KZT,Payoneer to Payoneer {UAE},0,0,0,0,Не достиг лимита,FALSE
 DOUBLE JUMP,Aizhan Zhussupova,USD,SWIFT from WIO {UAE},0,0,0,0,Не достиг лимита,FALSE
 Юлия Белалова,Anastasia Bulgakova,USD,USD,"0,52","54,96",0,"64,9",Не достиг лимита,FALSE
@@ -875,21 +878,24 @@ Danylo Prokhorenko,Anastasia Bulgakova,USD,Payoneer to Payoneer {UAE},0,"32,37",
 Livesport s.r.o.,Akzhan Abdullina,USD,SWIFT from WIO {UAE},0,"297,35",0,"341,21",Не достиг лимита,FALSE
 Anoshenko Alexei,Akzhan Abdullina,USD,SWIFT from BCC {UAE},54,0,0,"46880,46",Создастся Инвойс,FALSE
 vita-life.fit,Anastasia Bulgakova,USD,Нет,0,0,0,0,Не достиг лимита,FALSE
+Ruslan ranobes.net,Daniil Reznikov,USD,SWIFT from KZ,0,0,0,0,Не достиг лимита,FALSE
 Nerons Brother,Daniil Reznikov,USD,SWIFT from WIO {UAE},"21,3","259,5",0,"723,86",Создастся Инвойс,FALSE
 growth-hub.org,Asiya Kilybayeva,USD,Нет,0,"0,25",0,"0,25",Не достиг лимита,FALSE
 Ariadna turkrutv.net,Daniil Reznikov,USD,SWIFT from WIO {UAE},0,"10,55",0,"10,55",Не достиг лимита,FALSE
 Alex Ivanov,Anastasia Bulgakova,USD,USD,0,"89,58",0,"89,58",Не достиг лимита,FALSE
-ADME (CY) LTD,Daniil Reznikov,USD,SWIFT from ADIB {UAE},"21,3",0,0,"1371,02",Создастся Инвойс,FALSE
+ADME (CY) LTD,Daniil Reznikov,USD,SWIFT from ADIB {UAE},"21,3",0,0,"1371,14",Создастся Инвойс,FALSE
+KamiQR,Anastasia Bulgakova,KZT,SWIFT from KZ,0,"2199,24",0,"2199,24",Не достиг лимита,FALSE
 Asilbek vaqt.uz,Daniil Reznikov,KZT,SWIFT from ADIB {UAE},0,"19369,31",0,"22123,78",Не достиг лимита,FALSE
 xabar.uz,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0,"40,33",0,"40,33",Не достиг лимита,FALSE
 Zavgorodnev Dmitry,Daniil Reznikov,USD,Нет,0,"5,74",0,"5,74",Не достиг лимита,FALSE
 Aomata,Akzhan Abdullina,USD,SWIFT from WIO {UAE},0,"478,93",0,"478,93",Не достиг лимита,FALSE
 daryo.uz,Akzhan Abdullina,USD,SWIFT from ADIB {UAE},"41,5","41,5",0,"1194,96",Создастся Инвойс,FALSE
 Homedy,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"3250,8",Создастся Инвойс,FALSE
-sports.uz,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0,0,0,"376,03",Не достиг лимита,FALSE
-advanced-personality.com,Anastasia Bulgakova,USD,SWIFT from WIO {UAE},0,"7,08",0,"10,01",Не достиг лимита,FALSE
+sports.uz,Daniil Reznikov,USD,SWIFT from ADIB {UAE},0,0,0,"379,74",Не достиг лимита,FALSE
+advanced-personality.com,Anastasia Bulgakova,USD,SWIFT from WIO {UAE},0,"7,08",0,"10,03",Не достиг лимита,FALSE
+orginfo.uz,Akzhan Abdullina,USD,USD,"17,04",0,0,"323,69",Создастся Инвойс,FALSE
 Mujeeb,Daniil Reznikov,USD,Payoneer to Payoneer {UAE},"7,16","65,39",0,"505,9",Создастся Инвойс,FALSE
 Dotabuff,Daniil Reznikov,USD,SWIFT from WIO {UAE},0,"62,23",0,"164,19",Не достиг лимита,FALSE
-Appintel Tech LLP,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,18",0,0,"3896,46",Создастся Инвойс,FALSE
+Appintel Tech LLP,Akzhan Abdullina,USD,SWIFT from WIO {UAE},"21,3",0,0,"3896,34",Создастся Инвойс,FALSE
 Kateryna Demianushko,Anastasia Bulgakova,USD,USD,"1,76",0,0,"33,51",Не достиг лимита,FALSE
 Data Nation Inc,Akzhan Abdullina,USD,SWIFT from WIO {UAE},0,0,0,"5,41",Не достиг лимита,FALSE
